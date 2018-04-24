@@ -1,0 +1,16 @@
+<% layout('layout') %>
+<div class="series-container">
+	<h2><%= result.name %></h2>
+	<% for (var sData of result.matches) { %>
+		<div class="series-item">
+			<a href="/match/<%= sData.id %>" class="title"><%= sData.name %></a>
+			<div class="details-link-panel">
+				<a href="/match/<%= sData.id %>" class="match-link loader-handel" >Match Center</a>
+			</div>
+			<div class="details-panel">
+				<span class="item-date"><%= sData.date %></span>
+				<span class="item-details"><%= sData.details %></span>
+			</div>
+		</div>
+	<% } %>
+</div>

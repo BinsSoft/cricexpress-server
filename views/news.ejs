@@ -1,0 +1,18 @@
+<% layout('layout') %>
+<div class="news-main-container">
+	<div class="news-container">
+		<% for( var news of data.articles ) { %>
+		<div class="news-item">
+			<div class="news-image">
+				<img src="<%= news.urlToImage %>" width="100" />
+			</div>
+			<div class="news-details">
+				<div class="news-title"><%= news.title %></div>
+				<div class="news-desc"><%= news.description %></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<% } %>
+	</div>
+	
+</div>

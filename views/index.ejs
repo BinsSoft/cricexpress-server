@@ -1,0 +1,25 @@
+<% layout('layout') %>
+<% for(var m in data){ %>
+	<% if(data[m].series != '') { %>
+	<div class="m-r">
+		<div class="m-c-s"><%= data[m].series %>
+		<% if(data[m].status == 'live') { %>
+		<span><i></i></span>
+		
+		<% } %>
+		</div>
+		<div class="m-c-m"><%= data[m].name %></div>
+		<div class="m-c-st">
+		<% if (data[m].statusText.length > 0) { %>
+			
+			<% for(var ms in data[m].statusText) { %>
+				<p><%= data[m].statusText[ms] %></p>
+			<% } %>
+			
+		<% } %>
+		</div>
+		<div class="m-b"><a href="/match/<%= data[m]._id  %>" class="loader-handel">Match Center</a></div>
+		<div class="clearfix"></div>
+	</div>
+	<% } %>
+<% } %>

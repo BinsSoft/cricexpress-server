@@ -1,0 +1,14 @@
+<% layout('layout') %>
+<div class="series-container">
+	<div class="search-panel-series">
+		<input type="text" name="search-series" class="form-control"  placeholder="Search Series.." />
+	</div>
+	<% for (var s in data) { %>
+		<% for( var sData of data[s].series ) { %>
+		<div class="series-item">
+			<a href="/series-details/<%= sData.id+"/"+sData.slug %>" class="title"><%= sData.name %></a>
+			<span class="item-date"><%= sData.date %></span>
+		</div>
+		<% } %>
+	<% } %>
+</div>

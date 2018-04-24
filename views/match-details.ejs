@@ -1,0 +1,212 @@
+<% layout('layout') %>
+<div class="match-details-container">
+	<div class="m-h">
+		<div class="m-h-s">
+			<%= data.series.name %>
+		</div>
+		<div class="m-h-t-g">
+			<%= data.team1.name %> vs. <%= data.team2.name %>
+		</div>
+		<div class="m-h-d">
+			<%= data.match_desc %> (<%= data.type %>)
+		</div>
+
+	</div>
+
+	<div class="m-c">
+		<div class="m-status-main-container">
+		<div class="m-status-container">
+			<div class="m-s-c">
+				<div class="m-s-l">
+					<strong>Venue : </strong><%= data.venue.name %>, <%= data.venue.location %> 
+				</div>
+				<div class="m-s-t">
+					<strong>Toss :</strong> <% if(data.toss != undefined){  %> <%= data.toss.winner %> won the toss and elected  <%= data.toss.decision %> <% } else { %>pending<% } %>
+				</div>
+				<div class="m-s-s">
+					<strong>Status :</strong> <%= data.status %>
+				</div>
+				<% if(data.state_title == 'Live') { %>
+				<div class="m-s-s">
+					<a href="" class="refresh-btn loader-handel">Refresh</a>
+				</div>
+				<% } %>
+			</div>
+			<% if(data.score != undefined) { %>
+			<div class="m-s-c">
+				<% if(data.score.batting != undefined) { %>
+				<div class="m-s-c-i">
+					<div class="ms-s-c-h"><%= teams[data.score.batting.id].s_name %> </div>
+
+					<% if(data.score.batting.innings != undefined) { for(var i of data.score.batting.innings) { %>
+						<div class="ms-i-s">
+							<strong>Ins <%= i.id %> : </strong>
+							<span>
+								<%= i.score %>
+								<% if(i.wkts != '10') { %><%= "/ "+ i.wkts %><% } %>
+							</span>
+							<span>(Ov: <%= i.overs %>)</span>
+						</div>
+					<% } } %>
+					
+				</div>
+				<% } %>
+				<% if(data.score.bowling != undefined) { %>
+				<div class="m-s-c-i">
+					<div class="ms-s-c-h"><%= teams[data.score.bowling.id].s_name %> </div>
+					<% if(data.score.bowling.innings != undefined) { for(var i of data.score.bowling.innings) { %>
+						<div class="ms-i-s">
+							<strong>Ins <%= i.id %> : </strong>
+							<span>
+								<%= i.score %>
+								<% if(i.wkts != '10') { %><%= "/ "+ i.wkts %><% } %>
+							</span>
+							<span>(Ov: <%= i.overs %>)</span>
+						</div>
+					<% } } %>
+				</div>
+				<% } %>
+			</div>
+
+			<div class="m-s-c">
+				<% if(data.score.batsman != undefined){ %>
+					<div class="ms-sub-content">
+					<div class="ms-s-c-h">Bat</div>
+					<div class="ms-s-c-c">
+						<table>
+						<tr>
+							<th></th>
+							<th>R</th>
+							<th>B</th>
+							<th>4s</th>
+							<th>6s</th>
+						</tr>
+					<% for(var b of data.score.batsman){ %>
+						<tr>
+							<td width="30%"><%= players[b.id].name %> <%= (b.strike == '1')? '*':'' %></td>
+							<td width="10%"><%= b['r'] %></td>
+							<td width="10%"><%= b['b'] %></td>
+							<td width="10%"><%= b['4s'] %></td>
+							<td width="10%"><%= b['6s'] %></td>
+						</tr>
+					<% } %>
+
+						</table>
+					</div>
+					</div>
+				<% } %>
+				<% if(data.score.bowler != undefined){ %>
+					<div class="ms-sub-content">
+					<div class="ms-s-c-h">Bowl</div>
+					<div class="ms-s-c-c">
+						<table>
+						<tr>
+							<th></th>
+							<th>O</th>
+							<th>M</th>
+							<th>R</th>
+							<th>W</th>
+						</tr>
+					<% for(var b of data.score.bowler){ %>
+						
+						<tr>
+							<td width="30%"><%= players[b.id].name %></td>
+							<td width="10%"><%= b.o %></td>
+							<td width="10%"><%= b.m %></td>
+							<td width="10%"><%= b.r %></td>
+							<td width="10%"><%= b.w %></td>
+						</tr>
+							
+					<% } %>
+						</table>
+					</div>
+					</div>
+				<% } %>
+				<div class="clearfix"></div>
+				<% if(data.score.prev_overs != undefined) { %>
+					<div class="m-p-o-s">
+					 <% for(var o of lastOver) { %>
+					 	<%- o %>
+					 <% } %>
+					</div>
+				<% } %>
+			</div>
+			<% } %>
+			
+		</div>
+		</div>
+		<div class="match-tab-view">
+			<div class="m-tab-menu-container">
+				<ul>
+					<li class="m-tab-menu active"><a href="#commentry">Commentry</a></li>
+					<li class="m-tab-menu" data-match="<%= data.id %>"><a href="#scorecards" class="loader-handel">Score Cards</a></li>
+					<li class="m-tab-menu"><a href="#team">Teams</a></li>
+				</ul>
+			</div>
+			<div class="m-tab-contenter">
+				<div id="commentry" class="m-tab-content">
+					<% for(var c of data.comm_lines){ %>
+						<% if(c.comm != undefined) { %>
+						<div class="m-tab-com-content">
+							<% if(c.o_no != undefined) { %><p class="com-o"><%- c.o_no %></p><% } %>
+							<p class="com-text"><%- c.comm %></p>
+							<div class="clearfix"></div>
+						</div>
+						<% } %>
+					<% } %>
+				</div>
+				<div id="scorecards" class="m-tab-content">
+					<div class='match-score-setails'></div>
+				</div>
+				<div id="team" class="m-tab-content">
+					<% for(var t in teams) {%>
+					<div class="team-content">
+						<h2><%= teams[t].name %></h2>
+						<div class="team-play-11">
+							<div class="play-heading">Playing 11</div>
+							<% for(var s of teams[t].squad ) { %>
+								<div class="player">
+									<div class="p-name"><%= players[s].f_name %> <% if(players[s].role != undefined) { %><%=players[s].role%><% }%></div>
+									<table>
+									
+									<tr class="p-spacial"><th>Role : </th><td><%= players[s].speciality %> </td></tr>
+									<% if(players[s].bat_style != undefined) { %>
+									<tr class="p-bat"><th>Bat : </th><td><%= players[s].bat_style %> </td></tr>
+									<% }%>
+									<% if(players[s].bowl_style != undefined) { %>
+									<tr class="p-ball"><th>Ball : </th><td><%= players[s].bowl_style %> </td></tr>
+									<% }%>
+									</table>
+									<div class="clearfix"></div>
+								</div>
+							<% } %>
+						</div>
+						<div class="team-banch">
+						<div class="play-heading">Banch</div>
+							<% for(var s of teams[t].squad_bench ) { %>
+								<div class="player">
+									<div class="p-name"><%= players[s].f_name %> <% if(players[s].role != undefined) { %><%=players[s].role%><% }%></div>
+									<table>
+									
+									
+									<tr class="p-spacial"><th>Role : </th><td><%= players[s].speciality %> </td></tr>
+									<% if(players[s].bat_style != undefined) { %>
+									<tr class="p-bat"><th>Bat : </th><td><%= players[s].bat_style %> </td></tr>
+									<% }%>
+									<% if(players[s].bowl_style != undefined) { %>
+									<tr class="p-ball"><th>Ball : </th><td><%= players[s].bowl_style %> </td></tr>
+									<% }%>
+									</table>
+									<div class="clearfix"></div>
+								</div>
+							<% } %>
+						</div>
+						<div class="team-beanch">
+						</div>
+					</div>
+					<% } %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

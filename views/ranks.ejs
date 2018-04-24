@@ -1,0 +1,57 @@
+<% layout('layout') %>
+<div class="ranks-container">
+	<% if(data.type == 'team') { %>
+		<% for(var rank of data.ranks ) { %>
+			<div class="rank-panel">
+			<div class="rank-heading"><%= rank.heading  %></div>
+			<table celpadding="0" cellspacing="0" class="team-rank-table">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Match</th>
+						<th>Points</th>
+						<th>Rating</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for(var r of rank.ranks) { %>
+						<tr>
+							<td><%= r.team %></td>
+							<td><%= r.matches %></td>
+							<td><%= r.points %></td>
+							<td><%= r.rating %></td>
+						</tr>
+					<% } %>
+				</tbody>
+			</table>
+			</div>
+		<% } %>
+	<% } else if(data.type == 'players') { %>
+		
+			<div class="rank-panel">
+			<div class="rank-heading"><%= data.heading  %></div>
+			<table celpadding="0" cellspacing="0">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Name</th>
+						<th>Country</th>
+						<th>Point</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for(var r of data.ranks ) { %>
+						<tr>
+							<td><%= r.rank %></td>
+							<td><%= r.name %></td>
+							<td><%= r.country %></td>
+							<td><%= r.point %></td>
+							
+						</tr>
+					<% } %>
+				</tbody>
+			</table>
+			</div>
+		
+	<% } %>
+</div>

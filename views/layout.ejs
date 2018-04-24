@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Roboto%3A400%2C500%2C300" rel="stylesheet" property="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/custom.js"></script>
+	
+</head>
+<body>
+	<div class="main-container">
+		<div class="home-loader-container">
+			<div class="home-loader">
+				<i class="fa fa-circle-o-notch fa-spin" style="font-size:  62px;color: #2d2d2d;"></i>
+			</div>
+		</div>
+		<header>
+			<div class="header-left">Cric Express</div>
+			<div class="header-right"><i class="fa fa-list menu-btn"></i>
+			</div>
+			<div class="clearfix"></div>
+		</header>
+		<% include nav %>
+		<div class="container">
+			<div class="match-container">
+			<div class="scroll-top-btn"><i class="fa fa-arrow-circle-o-up"></i></div>
+			<%- body %>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
